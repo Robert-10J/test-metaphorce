@@ -1,19 +1,25 @@
 package com.conferencias.conferencias_metaphorce.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.conferencias.conferencias_metaphorce.models.Participante;
+import com.conferencias.conferencias_metaphorce.repositories.ParticipanteRepository;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/participantes")
 public class ParticipanteController {
+    
+    @Autowired
+    private ParticipanteRepository participanteRepository;
+
     @GetMapping
-    public Map<String, Object> index() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("hiii", "kpex");
-        return response;
+    public List<Participante> getAllParticipantes() {
+        return participanteRepository.findAll();
     }
+    
 }

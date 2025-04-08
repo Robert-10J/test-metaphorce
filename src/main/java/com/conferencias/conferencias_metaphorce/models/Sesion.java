@@ -26,14 +26,12 @@ public class Sesion {
   public Sesion() {
   }  
 
-  public Sesion(Long id, String titulo, LocalDate fecha, LocalTime hora, String ponentePrincipal,
-      Set<Registro> registros) {
+  public Sesion(Long id, String titulo, LocalDate fecha, LocalTime hora, String ponentePrincipal) {
     this.id = id;
     this.titulo = titulo;
     this.fecha = fecha;
     this.hora = hora;
     this.ponentePrincipal = ponentePrincipal;
-    this.registros = registros;
   }
 
   public Long getId() {

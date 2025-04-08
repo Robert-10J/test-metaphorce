@@ -22,7 +22,6 @@ public class ConferenciasMetaphorceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Participante> participantes = (List<Participante>) participanteRepository.findAll();
-		participantes.stream().forEach(participante -> System.out.println(participante));
+		
 	}
 }

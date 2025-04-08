@@ -10,17 +10,23 @@ public class Participante {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String nombre;
+
+  private String correo;
+  private String institucion;
+
+  @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
+  private Set<Registro> registros;
 
   public Participante() {
   }
   
-  public Participante(Long id, String nombre, String correo, String institucion, Set<Registro> registros) {
+  public Participante(Long id, String nombre, String correo, String institucion) {
     this.id = id;
     this.nombre = nombre;
     this.correo = correo;
     this.institucion = institucion;
-    this.registros = registros;
   }
 
   // @Override
@@ -68,12 +74,4 @@ public class Participante {
   public void setRegistros(Set<Registro> registros) {
     this.registros = registros;
   }
-
-  private String correo;
-  private String institucion;
-
-  @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
-  private Set<Registro> registros;
-
-    
 }
