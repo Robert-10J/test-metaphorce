@@ -11,9 +11,69 @@ public class Participante {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nombre;
+
+  public Participante() {
+  }
+  
+  public Participante(Long id, String nombre, String correo, String institucion, Set<Registro> registros) {
+    this.id = id;
+    this.nombre = nombre;
+    this.correo = correo;
+    this.institucion = institucion;
+    this.registros = registros;
+  }
+
+  // @Override
+  // public String toString() {
+  //   return "Participante [id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", institucion=" + institucion
+  //       + ", registros=" + registros + "]";
+  // }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public String getCorreo() {
+    return correo;
+  }
+
+  public void setCorreo(String correo) {
+    this.correo = correo;
+  }
+
+  public String getInstitucion() {
+    return institucion;
+  }
+
+  public void setInstitucion(String institucion) {
+    this.institucion = institucion;
+  }
+
+  public Set<Registro> getRegistros() {
+    return registros;
+  }
+
+  public void setRegistros(Set<Registro> registros) {
+    this.registros = registros;
+  }
+
   private String correo;
   private String institucion;
 
   @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
   private Set<Registro> registros;
+
+    
 }

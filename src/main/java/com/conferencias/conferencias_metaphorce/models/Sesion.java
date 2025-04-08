@@ -13,6 +13,7 @@ public class Sesion {
   private Long id;
 
   private String titulo;
+
   private LocalDate fecha;
   private LocalTime hora;
 
@@ -22,5 +23,64 @@ public class Sesion {
   @OneToMany(mappedBy = "sesion", cascade = CascadeType.ALL)
   private Set<Registro> registros;
 
-  
+  public Sesion() {
+  }  
+
+  public Sesion(Long id, String titulo, LocalDate fecha, LocalTime hora, String ponentePrincipal,
+      Set<Registro> registros) {
+    this.id = id;
+    this.titulo = titulo;
+    this.fecha = fecha;
+    this.hora = hora;
+    this.ponentePrincipal = ponentePrincipal;
+    this.registros = registros;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getTitulo() {
+    return titulo;
+  }
+
+  public void setTitulo(String titulo) {
+    this.titulo = titulo;
+  }
+
+  public LocalDate getFecha() {
+    return fecha;
+  }
+
+  public void setFecha(LocalDate fecha) {
+    this.fecha = fecha;
+  }
+
+  public LocalTime getHora() {
+    return hora;
+  }
+
+  public void setHora(LocalTime hora) {
+    this.hora = hora;
+  }
+
+  public String getPonentePrincipal() {
+    return ponentePrincipal;
+  }
+
+  public void setPonentePrincipal(String ponentePrincipal) {
+    this.ponentePrincipal = ponentePrincipal;
+  }
+
+  public Set<Registro> getRegistros() {
+    return registros;
+  }
+
+  public void setRegistros(Set<Registro> registros) {
+    this.registros = registros;
+  }
 }

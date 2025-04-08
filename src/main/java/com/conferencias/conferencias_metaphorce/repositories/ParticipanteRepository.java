@@ -1,5 +1,8 @@
 package com.conferencias.conferencias_metaphorce.repositories;
 
-public class ParticipanteRepository {
+import com.conferencias.conferencias_metaphorce.models.Participante;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ParticipanteRepository extends JpaRepository<Participante, Long> {
 
 }

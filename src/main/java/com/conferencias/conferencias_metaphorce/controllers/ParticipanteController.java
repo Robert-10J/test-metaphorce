@@ -8,9 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
-
+@RequestMapping("/api/participantes")
+public class ParticipanteController {
     @GetMapping
     public Map<String, Object> index() {
         Map<String, Object> response = new HashMap<>();
