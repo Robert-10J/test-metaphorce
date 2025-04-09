@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SesionDTO {
 
-
     private Integer id;
     private String titulo;
     private LocalDate fecha;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "registros", uniqueConstraints = {
@@ -17,15 +18,16 @@ public class Registro {
 
   @ManyToOne
   @JoinColumn(name = "participante_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference("participante-registro")
   private Participante participante;
 
   @ManyToOne
   @JoinColumn(name = "sesion_id", nullable = false)
-  @JsonBackReference
+  @JsonBackReference("sesion-registro")
   private Sesion sesion;
 
   @Column(name = "fecha_registro")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalTime fechaRegistro = LocalTime.now();
 
   public Registro() {

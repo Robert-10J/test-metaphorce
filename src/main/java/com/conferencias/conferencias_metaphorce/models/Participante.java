@@ -19,7 +19,7 @@ public class Participante {
   private String institucion;
 
   @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
-  @JsonManagedReference
+  @JsonManagedReference("participante-registro")
   private Set<Registro> registros;
 
   public Participante() {

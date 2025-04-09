@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "sesiones")
@@ -16,14 +17,17 @@ public class Sesion {
 
   private String titulo;
 
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate fecha;
+
+  @JsonFormat(pattern = "HH:mm:ss")
   private LocalTime hora;
 
   @Column(name = "ponente_principal")
   private String ponentePrincipal;
 
   @OneToMany(mappedBy = "sesion", cascade = CascadeType.ALL)
-  @JsonBackReference
+  @JsonBackReference("sesion-registro")
   private Set<Registro> registros;
 
   public Sesion() {
