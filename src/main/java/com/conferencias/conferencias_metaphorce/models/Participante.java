@@ -3,6 +3,8 @@ package com.conferencias.conferencias_metaphorce.models;
 import jakarta.persistence.*;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "participantes")
 public class Participante {
@@ -17,6 +19,7 @@ public class Participante {
   private String institucion;
 
   @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
+  @JsonManagedReference
   private Set<Registro> registros;
 
   public Participante() {

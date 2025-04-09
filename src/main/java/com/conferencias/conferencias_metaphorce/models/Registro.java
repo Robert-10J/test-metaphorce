@@ -3,6 +3,8 @@ package com.conferencias.conferencias_metaphorce.models;
 import jakarta.persistence.*;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "registros", uniqueConstraints = {
   @UniqueConstraint(columnNames = {"participante_id", "sesion_id"})
@@ -15,10 +17,12 @@ public class Registro {
 
   @ManyToOne
   @JoinColumn(name = "participante_id", nullable = false)
+  @JsonBackReference
   private Participante participante;
 
   @ManyToOne
   @JoinColumn(name = "sesion_id", nullable = false)
+  @JsonBackReference
   private Sesion sesion;
 
   @Column(name = "fecha_registro")

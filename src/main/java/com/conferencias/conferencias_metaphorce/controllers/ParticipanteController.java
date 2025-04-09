@@ -21,5 +21,4 @@ public class ParticipanteController {
     public List<Participante> getAllParticipantes() {
         return participanteRepository.findAll();
     }
-    
 }

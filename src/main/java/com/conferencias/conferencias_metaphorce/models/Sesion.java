@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "sesiones")
 public class Sesion {
@@ -21,6 +23,7 @@ public class Sesion {
   private String ponentePrincipal;
 
   @OneToMany(mappedBy = "sesion", cascade = CascadeType.ALL)
+  @JsonBackReference
   private Set<Registro> registros;
 
   public Sesion() {
