@@ -1,6 +1,8 @@
 package com.conferencias.conferencias_metaphorce.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,48 +43,60 @@ public class SesionController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Sesion> getSesionById(@PathVariable Long id) {
+    public ResponseEntity<?> getSesionById(@PathVariable Long id) {
         try {
             return sesionService.getSesionById(id)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
     @PostMapping(consumes = {"application/json", "application/json;charset=UTF-8"})
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Sesion> createSesion(@RequestBody Sesion sesion) {
+    public ResponseEntity<?> createSesion(@RequestBody Sesion sesion) {
         try {
             Sesion createdSesion = sesionService.createSesion(sesion);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdSesion);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sesion> putMethodName(@PathVariable Long id, @RequestBody Sesion sesionActualizada) {
+    public ResponseEntity<?> putMethodName(@PathVariable Long id, @RequestBody Sesion sesionActualizada) {
         try {
             Sesion sesionMod = sesionService.updateSesion(id, sesionActualizada);
             return ResponseEntity.ok(sesionMod);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSesion(@PathVariable Long id) {
+    public ResponseEntity<?> deleteSesion(@PathVariable Long id) {
         try {
             sesionService.deleteSesion(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 }
