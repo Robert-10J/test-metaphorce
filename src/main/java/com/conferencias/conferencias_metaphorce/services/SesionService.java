@@ -1,9 +1,7 @@
 package com.conferencias.conferencias_metaphorce.services;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.conferencias.conferencias_metaphorce.models.Sesion;
@@ -22,12 +20,28 @@ public class SesionService {
         return sesionRepository.findAll();
     }
 
-    public Optional<Sesion> getSesionById(Long id) {
-        return sesionRepository.findById(id);
+    public Sesion getSesionById(Long id) {
+        return sesionRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Sesión no encontrada con id: " + id));
     }
 
     public Sesion createSesion(Sesion sesion) {
+        if (sesion.getTitulo() == null || sesion.getTitulo().trim().isEmpty()) {
+            throw new IllegalArgumentException("El título de la sesión no puede estar vacío.");
+        }
+
         return sesionRepository.save(sesion);
+    }
+
+    public Sesion updateSesion(Long id, Sesion sesionActualizada) {
+        Sesion sesionExistente = sesionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sesión no encontrada con id: " + id));
+
+        sesionExistente.setTitulo(sesionActualizada.getTitulo());
+        sesionExistente.setFecha(sesionActualizada.getFecha());
+        sesionExistente.setPonentePrincipal(sesionActualizada.getPonentePrincipal());
+
+        return sesionRepository.save(sesionExistente);
     }
 
     public void deleteSesion(Long id) {
