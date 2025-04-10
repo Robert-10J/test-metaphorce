@@ -15,7 +15,6 @@ import com.conferencias.conferencias_metaphorce.services.SesionService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,14 +32,24 @@ public class SesionController {
 
     @GetMapping()
     public List<Sesion> getMethodName() {
-        return sesionService.getAllSesiones();
+        try {
+            return sesionService.getAllSesiones();
+        } catch (Exception e) {
+            e.getMessage();
+            return List.of(); // Return an empty list in case of an exception
+        }
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Sesion> getSesionById(@PathVariable Long id) {
-        return sesionService.getSesionById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return sesionService.getSesionById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PostMapping(consumes = {"application/json", "application/json;charset=UTF-8"})
@@ -57,14 +66,23 @@ public class SesionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Sesion> putMethodName(@PathVariable Long id, @RequestBody Sesion sesionActualizada) {
-        Sesion sesionMod = sesionService.updateSesion(id, sesionActualizada);
-
-        return ResponseEntity.ok(sesionMod);
+        try {
+            Sesion sesionMod = sesionService.updateSesion(id, sesionActualizada);
+            return ResponseEntity.ok(sesionMod);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSesion(@PathVariable Long id) {
-        sesionService.deleteSesion(id);
-        return ResponseEntity.noContent().build();
+        try {
+            sesionService.deleteSesion(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

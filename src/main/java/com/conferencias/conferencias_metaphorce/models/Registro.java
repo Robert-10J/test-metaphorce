@@ -1,7 +1,8 @@
 package com.conferencias.conferencias_metaphorce.models;
 
 import jakarta.persistence.*;
-import java.time.LocalTime;
+
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -28,12 +29,12 @@ public class Registro {
 
   @Column(name = "fecha_registro")
   @JsonFormat(pattern = "yyyy-MM-dd")
-  private LocalTime fechaRegistro = LocalTime.now();
+  private LocalDate fechaRegistro;
 
   public Registro() {
   }
 
-  public Registro(Long id, Participante participante, Sesion sesion, LocalTime fechaRegistro) {
+  public Registro(Long id, Participante participante, Sesion sesion, LocalDate fechaRegistro) {
     this.id = id;
     this.participante = participante;
     this.sesion = sesion;
@@ -64,11 +65,11 @@ public class Registro {
     this.sesion = sesion;
   }
 
-  public LocalTime getFechaRegistro() {
+  public LocalDate getFechaRegistro() {
     return fechaRegistro;
   }
 
-  public void setFechaRegistro(LocalTime fechaRegistro) {
+  public void setFechaRegistro(LocalDate fechaRegistro) {
     this.fechaRegistro = fechaRegistro;
   }
 }
