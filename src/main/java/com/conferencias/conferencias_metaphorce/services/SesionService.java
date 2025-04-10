@@ -30,7 +30,7 @@ public class SesionService {
             throw new IllegalArgumentException("El título de la sesión no puede estar vacío.");
         }
 
-        if (sesionRepository.existsByTitulo(sesion.getTitulo())){
+        if (sesionRepository.existsByTitulo(sesion.getTitulo())) {
             throw new IllegalArgumentException("Ya existe una sesión con el título: " + sesion.getTitulo());
         }
 

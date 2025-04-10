@@ -1,12 +1,12 @@
 package com.conferencias.conferencias_metaphorce.models;
 
-import jakarta.persistence.*;
+import java.util.Set;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
+import jakarta.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "sesiones")
