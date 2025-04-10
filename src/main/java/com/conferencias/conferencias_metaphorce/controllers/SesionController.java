@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -51,6 +53,13 @@ public class SesionController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Sesion> putMethodName(@PathVariable Long id, @RequestBody Sesion sesionActualizada) {
+        Sesion sesionMod = sesionService.updateSesion(id, sesionActualizada);
+
+        return ResponseEntity.ok(sesionMod);
     }
     
     @DeleteMapping("/{id}")

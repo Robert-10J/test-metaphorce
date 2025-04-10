@@ -1,6 +1,7 @@
 package com.conferencias.conferencias_metaphorce.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,8 @@ public class SesionService {
         return sesionRepository.findAll();
     }
 
-    public Sesion getSesionById(Long id) {
-        return sesionRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Sesión no encontrada con id: " + id));
+    public Optional<Sesion> getSesionById(Long id) {
+        return sesionRepository.findById(id);
     }
 
     public Sesion createSesion(Sesion sesion) {
