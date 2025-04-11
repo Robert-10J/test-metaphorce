@@ -29,7 +29,7 @@ public class Registro {
 
   @Column(name = "fecha_registro")
   @JsonFormat(pattern = "yyyy-MM-dd")
-  private LocalDate fechaRegistro;
+  private LocalDate fechaRegistro = LocalDate.now();
 
   public Registro() {
   }
