@@ -11,19 +11,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegistroDTO {
 
-    private Long id;
-    private Participante participante;
-    private Sesion sesion;
+  //  private Long id;
+    private Long participante;
+    private Long sesion;
 
     public RegistroDTO(Registro registro) {
-        this.id = registro.getId();
-        this.participante = registro.getParticipante();
-        this.sesion = registro.getSesion();
+       // this.id = registro.getId();
+        this.participante = registro.getParticipante().getId();
+        this.sesion = registro.getSesion().getId();
     }
 
     public Registro ToEntity(Sesion sesion, Participante participante) {
         Registro registroEntity = new Registro();
-        registroEntity.setId(this.id);
+       // registroEntity.setId(this.id);
         registroEntity.setParticipante(participante); // usar el parámetro
         registroEntity.setSesion(sesion);             // usar el parámetro
         return registroEntity;

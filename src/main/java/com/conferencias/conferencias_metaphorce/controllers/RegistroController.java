@@ -2,6 +2,7 @@ package com.conferencias.conferencias_metaphorce.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.conferencias.conferencias_metaphorce.dtos.RegistroDTO;
 import com.conferencias.conferencias_metaphorce.models.Registro;
 import com.conferencias.conferencias_metaphorce.services.RegistroService;
 
@@ -9,8 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @RestController
-@RequestMapping("/api/registros")
+@RequestMapping(value = "/api/registros", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegistroController {
 
     @Autowired
@@ -56,7 +59,7 @@ public class RegistroController {
     }
 
     @PostMapping(consumes = {"application/json", "application/json;charset=UTF-8"})
-    public ResponseEntity<?> createRegistro(@RequestBody Registro registro) {
+    public ResponseEntity<?> createRegistro(@RequestBody RegistroDTO registro) {
         try {
             Registro nuevoRegistro = registroService.createRegistro(registro);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevoRegistro);

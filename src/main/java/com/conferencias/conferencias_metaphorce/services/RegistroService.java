@@ -44,11 +44,11 @@ public class RegistroService {
     @Autowired
     private SesionRepository sesionRepository;
 
-    public Registro createTask(RegistroDTO registroDTO) {
-        Participante participante = participanteRepository.findById(registroDTO.getId())
+    public Registro createRegistro(RegistroDTO registroDTO) {
+        Participante participante = participanteRepository.findById(registroDTO.getParticipante())
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        Sesion sesion = sesionRepository.findById(registroDTO.getSesion().getId())
+        Sesion sesion = sesionRepository.findById(registroDTO.getSesion())
             .orElseThrow(() -> new RuntimeException("Sesión no encontrada"));
 
         Registro registro = registroDTO.ToEntity(sesion, participante);
