@@ -16,6 +16,7 @@ public class Participante {
   private String nombre;
 
   private String correo;
+  private String password;
   private String institucion;
 
   @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
@@ -25,10 +26,11 @@ public class Participante {
   public Participante() {
   }
   
-  public Participante(Long id, String nombre, String correo, String institucion) {
+  public Participante(Long id, String nombre, String correo, String password, String institucion) {
     this.id = id;
     this.nombre = nombre;
     this.correo = correo;
+    this.password = password;
     this.institucion = institucion;
   }
 
@@ -52,6 +54,14 @@ public class Participante {
 
   public void setNombre(String nombre) {
     this.nombre = nombre;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   public String getCorreo() {

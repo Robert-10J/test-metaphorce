@@ -28,7 +28,7 @@ public class ParticipanteService {
     }
 
     public Participante createParticipante(Participante participante) {
-        if (participante.getNombre() == null || participante.getNombre().trim().isEmpty() || participante.getCorreo() == null || participante.getInstitucion() == null) {
+        if (participante.getNombre() == null || participante.getNombre().trim().isEmpty() || participante.getCorreo() == null || participante.getInstitucion() == null || participante.getPassword() == null) {
             throw new IllegalArgumentException("Datos del participante incompletos.");
         }
 
