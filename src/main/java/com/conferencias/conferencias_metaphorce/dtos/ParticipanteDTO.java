@@ -20,4 +20,13 @@ public class ParticipanteDTO {
         this.correo = participante.getCorreo();
         this.institucion = participante.getInstitucion();
     }
+
+    public Participante ToEntity(Participante participante) {
+        Participante participanteEntity = new Participante();
+        participanteEntity.setId(this.id);
+        participanteEntity.setNombre(this.nombre);
+        participanteEntity.setCorreo(this.correo);
+        participanteEntity.setInstitucion(this.institucion);
+        return participanteEntity;
+    }
 }

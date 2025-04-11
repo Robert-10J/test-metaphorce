@@ -3,10 +3,17 @@ package com.conferencias.conferencias_metaphorce.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
+import com.conferencias.conferencias_metaphorce.dtos.RegistroDTO;
+import com.conferencias.conferencias_metaphorce.models.Participante;
 import com.conferencias.conferencias_metaphorce.models.Registro;
+import com.conferencias.conferencias_metaphorce.models.Sesion;
+import com.conferencias.conferencias_metaphorce.repositories.ParticipanteRepository;
 import com.conferencias.conferencias_metaphorce.repositories.RegistroRepository;
+import com.conferencias.conferencias_metaphorce.repositories.SesionRepository;
 
 @Service
 public class RegistroService {
@@ -25,10 +32,26 @@ public class RegistroService {
         return registroRepository.findById(id);
     }
 
-    public Registro createRegistro(Registro registro) {
-        if (registro.getParticipante() == null || registro.getSesion() == null) {
-            throw new IllegalArgumentException("El participante y la sesión no pueden ser nulos.");
-        }
+    // public Registro createRegistro(Registro registro) {
+    //     if (registro.getParticipante() == null || registro.getSesion() == null) {
+    //         throw new IllegalArgumentException("El participante y la sesión no pueden ser nulos.");
+    //     }
+
+    //     return registroRepository.save(registro);
+    // }
+    @Autowired
+    private ParticipanteRepository participanteRepository;
+    @Autowired
+    private SesionRepository sesionRepository;
+
+    public Registro createTask(RegistroDTO registroDTO) {
+        Participante participante = participanteRepository.findById(registroDTO.getId())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Sesion sesion = sesionRepository.findById(registroDTO.getSesion().getId())
+            .orElseThrow(() -> new RuntimeException("Sesión no encontrada"));
+
+        Registro registro = registroDTO.ToEntity(sesion, participante);
 
         return registroRepository.save(registro);
     }
