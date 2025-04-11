@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
+
 @RestController
 @RequestMapping(value = "/api/sesiones", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SesionController {
@@ -31,7 +32,7 @@ public class SesionController {
     private SesionService sesionService;
 
     @GetMapping()
-    public List<Sesion> getMethodName() {
+    public List<Sesion> getAllSesions() {
         try {
             return sesionService.getAllSesiones();
         } catch (Exception e) {
@@ -39,6 +40,17 @@ public class SesionController {
             return List.of(); // Return an empty list in case of an exception
         }
     }
+
+    @GetMapping("/ordenar/{orden}")
+    public List<Sesion> getAllSesionOrdered(@PathVariable String orden) {
+        try {
+            return sesionService.getAllSesionesOrdenadas(orden);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of(); 
+        }
+    }
+    
     
     @GetMapping("/{id}")
     public ResponseEntity<?> getSesionById(@PathVariable Long id) {

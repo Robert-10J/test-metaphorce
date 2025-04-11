@@ -1,5 +1,6 @@
 package com.conferencias.conferencias_metaphorce.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,69 @@ public class SesionService {
     public List<Sesion> getAllSesiones() {
         return sesionRepository.findAll();
     }
+
+    public List<Sesion> getAllSesionesOrdenadas(String orden) {
+        List<Sesion> sesiones = sesionRepository.findAll();
+        
+        // Verificamos si el orden es ascendente o descendente
+        boolean ascendente = !orden.equalsIgnoreCase("desc");
+        
+        // Aplicamos quicksort para ordenar por fecha
+        quicksortPorFecha(sesiones, 0, sesiones.size() - 1, ascendente);
+        
+        return sesiones;
+    }
+
+    private void quicksortPorFecha(List<Sesion> sesiones, int inicio, int fin, boolean ascendente) {
+        if (inicio < fin) {
+            int indiceParticion = particionarPorFecha(sesiones, inicio, fin, ascendente);
+            
+            // Ordenamos recursivamente las dos sub-listas
+            quicksortPorFecha(sesiones, inicio, indiceParticion - 1, ascendente);
+            quicksortPorFecha(sesiones, indiceParticion + 1, fin, ascendente);
+        }
+    }
+
+    private int particionarPorFecha(List<Sesion> sesiones, int inicio, int fin, boolean ascendente) {
+        // Usamos el último elemento como pivote
+        LocalDate fechaPivote = obtenerFecha(sesiones.get(fin));
+        
+        int i = inicio - 1; // Índice del elemento más pequeño
+        
+        for (int j = inicio; j < fin; j++) {
+            LocalDate fechaActual = obtenerFecha(sesiones.get(j));
+            
+            // Si ordenamos ascendentemente, queremos fechaActual <= fechaPivote
+            // Si ordenamos descendentemente, queremos fechaActual >= fechaPivote
+            boolean debeIntercambiar;
+            if (ascendente) {
+                debeIntercambiar = fechaActual.compareTo(fechaPivote) <= 0;
+            } else {
+                debeIntercambiar = fechaActual.compareTo(fechaPivote) >= 0;
+            }
+            
+            if (debeIntercambiar) {
+                i++;
+                // Intercambiamos sesiones[i] y sesiones[j]
+                Sesion temp = sesiones.get(i);
+                sesiones.set(i, sesiones.get(j));
+                sesiones.set(j, temp);
+            }
+        }
+        
+        // Intercambiamos sesiones[i+1] y sesiones[fin] (o el pivote)
+        Sesion temp = sesiones.get(i + 1);
+        sesiones.set(i + 1, sesiones.get(fin));
+        sesiones.set(fin, temp);
+        
+        return i + 1;
+    }
+
+    private LocalDate obtenerFecha(Sesion sesion) {
+        // Suponiendo que el campo fecha es un String en formato "yyyy-MM-dd"
+        return LocalDate.parse(sesion.getFechaString());
+    }
+
 
     public Optional<Sesion> getSesionById(Long id) {
         return sesionRepository.findById(id);
@@ -55,4 +119,6 @@ public class SesionService {
             throw new RuntimeException("Sesion not found with id: " + id);
         }
     }
+
+    
 }

@@ -3,9 +3,8 @@ package com.conferencias.conferencias_metaphorce.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.conferencias.conferencias_metaphorce.dtos.RegistroDTO;
 import com.conferencias.conferencias_metaphorce.models.Participante;

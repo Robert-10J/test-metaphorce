@@ -61,12 +61,20 @@ public class Sesion {
     return fecha;
   }
 
+  public String getFechaString() {
+    return fecha.toString();
+  }
+
   public void setFecha(LocalDate fecha) {
     this.fecha = fecha;
   }
 
   public LocalTime getHora() {
     return hora;
+  }
+
+  public String getHoraString() {
+    return hora.toString();
   }
 
   public void setHora(LocalTime hora) {
