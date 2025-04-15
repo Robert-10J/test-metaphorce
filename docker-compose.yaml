@@ -17,13 +17,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '4000:4000'
+      - '8081:8081'
     depends_on:
       - postgres
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/conferences-test
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - SERVER_PORT=8081
     networks:
       - app-network
 
